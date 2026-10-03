@@ -23,7 +23,7 @@ dependencies {
     compileOnly libs.bundles.plugin.integrations
 }
 
-def targetJavaVersion = 17
+def targetJavaVersion = 25
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
@@ -84,13 +84,13 @@ tasks {
             url("https://download.luckperms.net/1575/bukkit/loader/LuckPerms-Bukkit-5.4.158.jar")
         }
          */
-        minecraftVersion("1.21.4")
+        minecraftVersion("26.2")
     }
     // Folia
     runPaper.folia.registerTask()
     runFolia {
         runDirectory(file("runFolia"))
-        minecraftVersion("1.21.4")
+        minecraftVersion("26.2")
     }
 }
 

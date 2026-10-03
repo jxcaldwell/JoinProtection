@@ -1,5 +1,5 @@
 [versions]
-paper-api = "1.20.4-R0.1-SNAPSHOT"
+paper-api = "26.2.build.+"
 
 adventure-minimessage = "4.20.0"
 adventure-bukkit = "4.3.4"
@@ -12,7 +12,7 @@ miniplaceholders = "2.2.3"
 luckperms = "5.4"
 
 # gradle plugins
-shadow = "8.3.5"
+shadow = "9.2.2"
 run-paper = "2.3.1"
 
 [libraries]
