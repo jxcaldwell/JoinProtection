@@ -69,7 +69,7 @@ sourceSets.main.java.srcDir(processTemplates.map { it.outputs })
 shadowJar {
     archiveClassifier = ''
     minimize()
-    enableRelocation = true
+    enableAutoRelocation = true
     relocationPrefix = 'me.rockquiet.joinprotection.3rdparty'
 }
 
