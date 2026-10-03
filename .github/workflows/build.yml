@@ -5,6 +5,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -36,3 +39,21 @@ jobs:
         with:
           name: JoinProtection-jar
           path: build/libs/*.jar
+
+      - name: Inspect jar
+        run: |
+          ls -l build/libs
+          jar=$(ls build/libs/*.jar | head -1)
+          meta=$(unzip -p "$jar" plugin.yml | head -12 | awk '{printf "%s%%0A", $0}')
+          top=$(unzip -l "$jar" | awk '{print $4}' | grep -E '^[a-z]+/' | cut -d/ -f1-3 | sort -u | head -15 | awk '{printf "%s%%0A", $0}')
+          echo "::notice title=Jar inspection::$(basename "$jar") $(du -h "$jar" | cut -f1)%0A${meta}%0A--- packages ---%0A${top}"
+
+      - name: Publish release
+        if: github.ref == 'refs/heads/paper-26.2-support'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create paper-26.2-build build/libs/*.jar --target "${{ github.sha }}" --prerelease \
+            --title "JoinProtection (Paper 26.2 build)" \
+            --notes "Unofficial build of JoinProtection targeting Paper 26.2 (Java 25)." \
+          || gh release upload paper-26.2-build build/libs/*.jar --clobber
